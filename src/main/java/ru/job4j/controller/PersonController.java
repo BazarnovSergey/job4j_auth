@@ -8,6 +8,7 @@ import ru.job4j.domain.Person;
 import ru.job4j.repository.PersonRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * контроллер для регистрации пользователя и
@@ -48,13 +49,17 @@ public class PersonController {
 
     @PutMapping("/")
     public ResponseEntity<Void> update(@RequestBody Person person) {
-        this.persons.save(person);
-        return ResponseEntity.ok().build();
+        var updatedPersonOptional = Optional.of(this.persons.save(person));
+        return updatedPersonOptional.isPresent() ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
         Person person = new Person();
+        var deletedPerson = this.persons.findById(id);
+        if (deletedPerson.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
         person.setId(id);
         this.persons.delete(person);
         return ResponseEntity.ok().build();
