@@ -7,11 +7,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.job4j.domain.Person;
 import ru.job4j.repository.PersonRepository;
+
+import static java.util.Collections.emptyList;
+
 /**
  * сервис загружает в SecurityHolder детали авторизованного пользователя
  */
-import static java.util.Collections.emptyList;
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
