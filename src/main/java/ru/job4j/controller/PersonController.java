@@ -41,7 +41,7 @@ public class PersonController {
 
     @GetMapping("/")
     public ResponseEntity<List<Person>> findAll() {
-        return new ResponseEntity<>((List<Person>) this.persons.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(this.persons.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
