@@ -13,6 +13,7 @@ import ru.job4j.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -53,7 +54,7 @@ public class PersonController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Person> create(@RequestBody Person person) {
+    public ResponseEntity<Person> create(@Valid @RequestBody Person person) {
         if (Objects.equals(person.getLogin(), "") || Objects.equals(person.getPassword(), "")) {
             throw new NullPointerException("login and password mustn't be empty");
         }
@@ -86,7 +87,7 @@ public class PersonController {
     }
 
     @PostMapping("/sign-up")
-    public void signUp(@RequestBody Person person) {
+    public void signUp(@Valid @RequestBody Person person) {
         if (Objects.equals(person.getLogin(), "") || Objects.equals(person.getPassword(), "")) {
             throw new NullPointerException("login and password mustn't be empty");
         }
